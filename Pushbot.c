@@ -19,16 +19,18 @@ void pre_auton()
 task autonomous()
 {
 }
-
+task go()
+{
+	motor[frontLeft] = vexRT[Ch3];
+	motor[backLeft] = vexRT[Ch3];
+	motor[frontRight] = vexRT[Ch2];
+	motor[backRight] = vexRT[Ch2];
+}
 task usercontrol()
 {
-
+	startTask(go);
 	while (true)
-	{
-
-		motor[frontLeft] = vexRT[Ch3];
-		motor[backLeft] = vexRT[Ch3];
-		motor[frontRight] = vexRT[Ch2];
-		motor[backRight] = vexRT[Ch2];
+	{ 
+		wait1Msec (1);
 	}
 }
