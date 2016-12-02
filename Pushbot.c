@@ -19,7 +19,7 @@ void pre_auton()
 task autonomous()
 {
 }
-task go()
+task moveBitch()
 {
 	motor[frontLeft] = vexRT[Ch3];
 	motor[backLeft] = vexRT[Ch3];
@@ -28,7 +28,7 @@ task go()
 }
 task usercontrol()
 {
-	startTask(go);
+	startTask(moveBitch);
 	while (true)
 	{ 
 		wait1Msec (1);
