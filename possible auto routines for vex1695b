@@ -1,0 +1,69 @@
+task autoTurnRight()
+{ 
+    motor[frontLeft] = 127;
+    motor[backLeft] = 127;
+    motor[frontRight] = -127;
+    motor[backRight] = -127;
+    wait1Msec(10);
+}
+
+task autoTurnLeft()
+{ 
+    motor[frontLeft] = -127;
+    motor[backLeft] = -127;
+    motor[frontRight] = 127;
+    motor[backRight] = 127;
+    wait1Msec(10);
+
+}
+
+task autoMoveForwards()
+{
+    motor[frontLeft] = 80;
+    motor[backLeft] = 80;
+    motor[frontRight] = 80;
+    motor[backRight] = 80;
+    wait1Msec(100);
+}
+task autoMoveBack()
+{
+motor[frontLeft] = -80;
+    motor[backLeft] = -80;
+    motor[frontRight] = -80;
+    motor[backRight] = -80;
+    wait1Msec(100);
+}
+void AutoDriveDistance( int speed, int d )
+{
+    int drive_counts;
+
+    // d is in inches based on 1:1 drive and 4" wheel
+    // due to deceleration deduct 4 inches fron desired value
+
+    if( abs(d) > 4 )
+        drive_counts = (int)(28.66 * (float)(  sgn(d)* (abs(d) - 4))  );
+    else
+        drive_counts = 100; // just creates a blip of speed, no real use
+
+    // if we are already running then stop
+    // it's not a good idea to change distance while running anyway
+    drive_speed = 0;
+
+
+    if( speed > 0 )
+        {
+        // forwards
+        SetDriveEncoder( driveEncLeft,  -drive_counts);
+        SetDriveEncoder( driveEncRight, -drive_counts);
+        }
+    else
+        {
+        // backwards
+        SetDriveEncoder( driveEncLeft,   drive_counts);
+        SetDriveEncoder( driveEncRight,  drive_counts);
+        }
+
+    drive_speed = speed;
+    drive_enable = 1;
+}
+
