@@ -27,43 +27,27 @@ task autoMoveForwards()
 }
 task autoMoveBack()
 {
-motor[frontLeft] = -80;
+    motor[frontLeft] = -80;
     motor[backLeft] = -80;
     motor[frontRight] = -80;
     motor[backRight] = -80;
     wait1Msec(100);
 }
-void AutoDriveDistance( int speed, int d )
+task moveDistanceFromStartAcrossField()
 {
-    int drive_counts;
-
-    // d is in inches based on 1:1 drive and 4" wheel
-    // due to deceleration deduct 4 inches fron desired value
-
-    if( abs(d) > 4 )
-        drive_counts = (int)(28.66 * (float)(  sgn(d)* (abs(d) - 4))  );
-    else
-        drive_counts = 100; // just creates a blip of speed, no real use
-
-    // if we are already running then stop
-    // it's not a good idea to change distance while running anyway
-    drive_speed = 0;
-
-
-    if( speed > 0 )
-        {
-        // forwards
-        SetDriveEncoder( driveEncLeft,  -drive_counts);
-        SetDriveEncoder( driveEncRight, -drive_counts);
-        }
-    else
-        {
-        // backwards
-        SetDriveEncoder( driveEncLeft,   drive_counts);
-        SetDriveEncoder( driveEncRight,  drive_counts);
-        }
-
-    drive_speed = speed;
-    drive_enable = 1;
+  sensorValue[leftEncoder] = 0; 
+  int tickGoal = 48.3 * 10;
+ 
+  while(SensorValue[leftEncoder] < tickGoal)
+  {
+    motor[frontLeft] = 127;  
+    motor[frontRight] = 127;
+    motor[backLeft] = 127
+    motor[backRight] = 127
+  }
+  motor[frontLeft] = 0; 
+  motor[frontRight] = 0; 
+  motor[backLeft] = 0;
+  motor[backRight] = 0;
 }
 
